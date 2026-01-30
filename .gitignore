@@ -1,0 +1,39 @@
+# Dependencias
+node_modules/
+
+#Builds
+dist/
+dist-ssr/
+
+#Variables de entorno
+.env
+.env.*
+!.env.example
+
+#Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+#Editor / IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+.idea/
+*.swp
+*.swo
+
+#Sistema Operativo
+.DS_Store
+Thumbs.db
+
+#TypeScript
+*.tsbuildinfo
+
+#Testing / coverage
+coverage/
+
+#Misc
+*.local
