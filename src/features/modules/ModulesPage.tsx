@@ -3,71 +3,57 @@ import { getModules } from "./api";
 import type { Module } from "./types";
 
 type State =
-    | { status: "loading" }
-    | { status: "error"; message: string }
-    | { status: "success"; data: Module[] };
+  | { status: "loading" }
+  | { status: "error"; message: string }
+  | { status: "success"; data: Module[] };
 
 export function ModulesPage() {
-    const [state, setState] = useState<State>({ status: "loading" });
+  const [state, setState] = useState<State>({ status: "loading" });
 
-    useEffect(() => {
-        let alive = true;
+  useEffect(() => {
+    getModules()
+      .then((data) => {
+        setState({ status: "success", data });
+      })
+      .catch((err) => {
+        setState({
+          status: "error",
+          message: err instanceof Error ? err.message : "Error desconocido",
+        });
+      });
+  }, []);
 
-        getModules()
-            .then((data) => {
-                if (!alive) return;
-                setState({ status: "success", data });
-            })
-            .catch((e: unknown) => {
-                if (!alive) return;
-                const message = e instanceof Error ? e.message : String(e);
-                setState({ status: "error", message });
-            });
+  if (state.status === "loading") {
+    return <div className="p-6">Cargando módulos…</div>;
+  }
 
-            return () => {
-                alive = false;
-            };
-    }, []);
-
-    if (state.status === "loading") {
-        return <div className="p-6">Cargando módulos...</div>;
-    }
-
-    if (state.status === "error") {
-        return (
-            <div className="p-6">
-                <div className="text-lg font-semibold">Error</div>
-                <div className="mt-2 text-sm opacity-80">{state.message}</div>
-                <div className="mt-4 text-sm">
-                    Revisa que el backend esté levantado y que{" "}
-                    <code className="px-1 py-0.5 rounded border">VITE_API_BASE_URL</code>{" "}
-                    apunte bien.
-                </div>
-            </div>
-        );
-    }
-
-    const modules = state.data;
-
+  if (state.status === "error") {
     return (
-        <div className="p-6 max-w-3xl mx-auto">
-            <h1 className="text-2xl font-semibold mb-4">Modules</h1>
-
-            {modules.length === 0 ? (
-                <div className="opacity-70">No hay módules.</div>
-            ) : (
-                <ul className="grid gap-3">
-                    {modules.map((m) => (
-                        <li key={m.id} className="rounded-xl border p-4">
-                            <div className="font-medium">{m.title}</div>
-                            <div className="text-sm opacity-70">/{m.slug}</div>
-                            {m.excerpt && (
-                                <div className="text-sm mt-2 opacity-80">{m.excerpt}</div>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
+      <div className="p-6 text-red-600">
+        Error cargando módulos: {state.message}
+      </div>
     );
+  }
+
+  return (
+    <div className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-semibold mb-4">Módulos</h1>
+
+      {state.data.length === 0 ? (
+        <div>No hay módulos.</div>
+      ) : (
+        <ul className="space-y-3">
+          {state.data.map((m) => (
+            <li key={m.id} className="border rounded-lg p-4">
+              <div className="font-medium">{m.title}</div>
+              <div className="text-sm opacity-70">/{m.slug}</div>
+              {m.excerpt && (
+                <p className="mt-2 text-sm opacity-80">{m.excerpt}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }

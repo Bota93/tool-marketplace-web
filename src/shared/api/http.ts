@@ -1,54 +1,52 @@
 import { env } from "@/config/env";
 
-type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
 export class HttpError extends Error {
-    status: number;
-    body?: unknown;
+  status: number;
+  body?: unknown;
 
-    constructor(message:string, status:number, body?: unknown) {
-        super(message);
-        this.status = status;
-        this.body = body;
-    }
+  constructor(message: string, status: number, body?: unknown) {
+    super(message);
+    this.status = status;
+    this.body = body;
+  }
 }
 
+type HttpOptions = {
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  token?: string | null;
+  body?: unknown;
+  signal?: AbortSignal;
+};
+
 export async function http<T>(
-    path:string,
-    options?: {
-        method?: HttpMethod;
-        token?: string | null;
-        body?: unknown;
-        signal?: AbortSignal;
-    }
+  path: string,
+  options: HttpOptions = {}
 ): Promise<T> {
-    const url = `${env.apiBaseUrl}${path}`;
+  const res = await fetch(`${env.apiBaseUrl}${path}`, {
+    method: options.method ?? "GET",
+    headers: {
+      Accept: "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+    signal: options.signal,
+  });
 
-    const res = await fetch(url, {
-        method: options?.method ?? "GET",
-        headers: {
-            Accept: "application/json",
-            ...(options?.body ? { "Content-Type": "application/json" } : {}),
-            ...(options?.token ? { Authorization: `Bearer ${options.token}` } : {}),
-        },
-        body: options?.body ? JSON.stringify(options.body) : undefined,
-        signal: options?.signal,
-    });
+  const text = await res.text();
+  const data = text ? safeJson(text) : null;
 
-    const raw = await res.text();
-    const data = raw ? safeJson(raw) : null;
+  if (!res.ok) {
+    throw new HttpError(`HTTP ${res.status}`, res.status, data);
+  }
 
-    if (!res.ok) {
-        throw new HttpError(`HTTP ${res.status} calling ${path}`, res.status, data);
-    }
-
-    return data as T;
+  return data as T;
 }
 
 function safeJson(text: string) {
-    try {
-        return JSON.parse(text);
-    } catch {
-        return text;
-    }
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
 }
