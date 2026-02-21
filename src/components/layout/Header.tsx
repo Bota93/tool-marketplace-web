@@ -1,8 +1,15 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import logo from "@/assets/brand/logo_impulvia.jpeg";
+import { useLocation } from "react-router-dom";
 
 export function Header() {
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
       <Container>
@@ -13,9 +20,21 @@ export function Header() {
           </a>
 
           <nav className="hidden items-center gap-8 text-sm text-slate-200 md:flex">
-            <a className="hover:text-white transition" href="/">Inicio</a>
-            <a className="hover:text-white transition" href="/servicios">Servicios</a>
-            <a className="hover:text-white transition" href="/ofertas">Ofertas</a>
+            <a 
+              className={`transition ${isActive('/') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              href="/">
+              Inicio
+            </a>
+            <a 
+              className={`transition ${isActive('/servicios') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              href="/servicios">
+              Servicios
+            </a>
+            <a 
+              className={`transition ${isActive('/ofertas') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              href="/ofertas">
+              Ofertas
+            </a>
             <a className="hover:text-white transition" href="#contact">Contacto</a>
           </nav>
 
