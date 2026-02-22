@@ -6,11 +6,11 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function Button({ variant = "primary", className = "", ...props }: Props) {
   const base =
-    "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-zinc-400";
+    "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-orange-400";
   const styles =
     variant === "primary"
-      ? "bg-zinc-900 text-white hover:bg-zinc-800"
-      : "bg-zinc-100 text-zinc-900 hover:bg-zinc-200";
+      ? "bg-orange-500 text-white hover:bg-orange-600"
+      : "border border-orange-500 text-orange-500 hover:bg-orange-500/10";
 
   return <button className={`${base} ${styles} ${className}`} {...props} />;
 }

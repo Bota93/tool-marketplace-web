@@ -50,7 +50,7 @@ export function Process() {
         {steps.map((step, idx) => (
           <div key={step.num} className="relative">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-lg flex-shrink-0">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white font-bold text-lg flex-shrink-0">
                 {step.num}
               </div>
               <div className="flex-1 pt-1">

@@ -76,8 +76,8 @@ export function ServicesPage() {
                 <div className="grid gap-12 md:grid-cols-2 items-center">
                   <div>
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-blue-100 rounded-lg">
-                        <Icon className="h-6 w-6 text-blue-600" />
+                      <div className="p-3 bg-orange-100 rounded-lg">
+                        <Icon className="h-6 w-6 text-orange-600" />
                       </div>
                     </div>
                     <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
@@ -91,7 +91,7 @@ export function ServicesPage() {
                   <div className="space-y-3">
                     {service.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3">
-                        <div className="h-5 w-5 rounded-full bg-blue-600 flex items-center justify-center mt-1 flex-shrink-0">
+                        <div className="h-5 w-5 rounded-full bg-orange-600 flex items-center justify-center mt-1 flex-shrink-0">
                           <span className="text-white text-xs">✓</span>
                         </div>
                         <span className="text-slate-700">{feature}</span>
@@ -104,7 +104,7 @@ export function ServicesPage() {
           );
         })}
 
-        <Section className="bg-blue-50 text-slate-900 py-16">
+        <Section className="bg-orange-50 text-slate-900 py-16">
           <Container>
             <div className="text-center max-w-2xl mx-auto">
               <h2 className="text-3xl font-semibold mb-4">¿Necesitas más información?</h2>

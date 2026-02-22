@@ -19,23 +19,23 @@ export function Header() {
             <span className="sr-only">Impulvia</span>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm text-slate-200 md:flex">
+          <nav className="hidden items-center gap-8 text-base font-medium text-slate-200 md:flex">
             <a 
-              className={`transition ${isActive('/') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              className={`transition ${isActive('/') ? 'text-white border-b-2 border-orange-500 pb-1' : 'hover:text-white'}`} 
               href="/">
               Inicio
             </a>
             <a 
-              className={`transition ${isActive('/servicios') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              className={`transition ${isActive('/servicios') ? 'text-white border-b-2 border-orange-500 pb-1' : 'hover:text-white'}`} 
               href="/servicios">
               Servicios
             </a>
             <a 
-              className={`transition ${isActive('/ofertas') ? 'text-white border-b-2 border-blue-600 pb-1' : 'hover:text-white'}`} 
+              className={`transition ${isActive('/ofertas') ? 'text-white border-b-2 border-orange-500 pb-1' : 'hover:text-white'}`} 
               href="/ofertas">
               Ofertas
             </a>
-            <a className="hover:text-white transition" href="#contact">Contacto</a>
+            <a className="hover:text-white transition font-medium" href="#contact">Contacto</a>
           </nav>
 
           <div className="flex items-center gap-2">

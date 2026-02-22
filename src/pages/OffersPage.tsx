@@ -90,12 +90,12 @@ export function OffersPage() {
                   key={pkg.id}
                   className={`relative rounded-2xl border-2 overflow-hidden transition ${
                     pkg.popular
-                      ? "border-blue-600 bg-blue-50 shadow-xl"
+                      ? "border-orange-500 bg-orange-50 shadow-xl"
                       : "border-slate-200 bg-white"
                   }`}
                 >
                   {pkg.popular && (
-                    <div className="absolute top-0 left-0 right-0 bg-blue-600 text-white py-2 px-4 text-center text-sm font-semibold">
+                    <div className="absolute top-0 left-0 right-0 bg-orange-500 text-white py-2 px-4 text-center text-sm font-semibold">
                       ★ MÁS POPULAR ★
                     </div>
                   )}
@@ -177,15 +177,15 @@ export function OffersPage() {
           </Container>
         </Section>
 
-        <Section className="bg-blue-600 text-white py-16">
+        <Section className="bg-orange-500 text-white py-16">
           <Container>
             <div className="text-center max-w-2xl mx-auto">
               <h2 className="text-3xl font-semibold mb-4">¿No estás seguro cuál es tu mejor opción?</h2>
-              <p className="mb-8 text-blue-100">
+              <p className="mb-8 text-orange-100">
                 Agenda una llamada. Analizamos tu proyecto sin compromiso.
               </p>
               <a href="#contact">
-                <Button className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button className="bg-white text-orange-600 hover:bg-orange-50">
                   Solicitar consulta
                 </Button>
               </a>

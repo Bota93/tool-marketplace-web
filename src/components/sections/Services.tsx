@@ -26,16 +26,22 @@ export function Services() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        {services.map((s) => (
-          <div key={s.title} className="rounded-2xl border border-slate-200 p-6">
-            <h3 className="text-lg font-semibold">{s.title}</h3>
-            <p className="mt-3 text-slate-600">{s.desc}</p>
+        {services.map((s, idx) => (
+          <div key={s.title} className={`rounded-2xl border p-6 transition hover:shadow-lg ${
+            idx === 0 ? 'border-orange-200 bg-orange-50 hover:border-orange-300' : 'border-blue-200 bg-blue-50 hover:border-blue-300'
+          }`}>
+            <h3 className={`text-lg font-semibold ${
+              idx === 0 ? 'text-orange-900' : 'text-blue-900'
+            }`}>{s.title}</h3>
+            <p className={`mt-3 ${
+              idx === 0 ? 'text-orange-700' : 'text-blue-700'
+            }`}>{s.desc}</p>
           </div>
         ))}
       </div>
 
       <div className="mt-10 text-center">
-        <a href="/servicios" className="text-blue-600 font-semibold hover:text-blue-700">
+        <a href="/servicios" className="text-orange-600 font-semibold hover:text-orange-700">
           Ver detalles de cada servicio →
         </a>
       </div>
