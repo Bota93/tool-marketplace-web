@@ -110,14 +110,14 @@ export function OffersPage() {
                       )}
                     </div>
                     
-                    <a href="#contact" className="w-full">
-                      <Button 
-                        variant={pkg.popular ? "primary" : "secondary"}
-                        className="w-full"
-                      >
-                        {pkg.price === "Personalizado" ? "Solicitar presupuesto" : "Contratar"}
-                      </Button>
-                    </a>
+                    <Button
+                      as="a"
+                      href="/contacto"
+                      variant={pkg.popular ? "primary" : "secondary"}
+                      className="w-full"
+                    >
+                      {pkg.price === "Personalizado" ? "Solicitar presupuesto" : "Contratar"}
+                    </Button>
 
                     <div className="mt-8 space-y-4">
                       <h4 className="font-semibold text-slate-900">Incluye:</h4>
@@ -184,11 +184,9 @@ export function OffersPage() {
               <p className="mb-8 text-orange-100">
                 Agenda una llamada. Analizamos tu proyecto sin compromiso.
               </p>
-              <a href="#contact">
-                <Button className="bg-white text-orange-600 hover:bg-orange-50">
-                  Solicitar consulta
-                </Button>
-              </a>
+              <Button as="a" href="/contacto" className="bg-white text-orange-600 hover:bg-orange-50">
+                Solicitar consulta
+              </Button>
             </div>
           </Container>
         </Section>

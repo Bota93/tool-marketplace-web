@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useCallback, useId, useState, type KeyboardEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -24,9 +24,35 @@ export function Hero() {
   const carouselLabelId = useId();
   const slideRegionId = useId(); // para aria-controls
   const slideTitleId = useId(); // para aria-labelledby del slide actual
+  const totalSlides = services.length;
+  const currentService = services[currentSlide];
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % services.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  const handleSelectSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
+  }, []);
+
+  const handleCarouselKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        nextSlide();
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        prevSlide();
+      }
+    },
+    [nextSlide, prevSlide],
+  );
 
   return (
     <header
@@ -61,12 +87,12 @@ export function Hero() {
 
         {/* Acciones principales */}
         <nav className="mt-10 flex flex-wrap gap-4 justify-center" aria-label="Acciones principales">
-          <a href="#contact">
-            <Button>Solicitar diagnóstico</Button>
-          </a>
-          <a href="/servicios">
-            <Button variant="secondary">Ver servicios</Button>
-          </a>
+          <Button as="a" href="/contacto">
+            Solicitar diagnóstico
+          </Button>
+          <Button as="a" href="/servicios" variant="secondary">
+            Ver servicios
+          </Button>
         </nav>
 
         {/* Servicios (Carrusel) */}
@@ -80,18 +106,20 @@ export function Hero() {
             role="region"
             aria-roledescription="carousel"
             aria-label="Carrusel de servicios"
+            tabIndex={0}
+            onKeyDown={handleCarouselKeyDown}
           >
             <Card
               regionId={slideRegionId}
               titleId={slideTitleId}
-              title={services[currentSlide].title}
-              description={services[currentSlide].desc}
+              title={currentService.title}
+              description={currentService.desc}
               currentIndex={currentSlide}
-              total={services.length}
+              total={totalSlides}
             />
 
             {/* Navegación del carrusel */}
-            <div className="mt-6 flex items-center justify-between" aria-label="Controles del carrusel">
+            <nav className="mt-6 flex items-center justify-between" aria-label="Controles del carrusel">
               <button
                 type="button"
                 onClick={prevSlide}
@@ -110,14 +138,17 @@ export function Hero() {
                     <li key={service.title}>
                       <button
                         type="button"
-                        onClick={() => setCurrentSlide(index)}
-                        className={`w-2 h-2 rounded-full transition ${
-                          isActive ? "bg-orange-500" : "bg-white/30"
-                        }`}
+                        onClick={() => handleSelectSlide(index)}
+                        className="h-8 w-8 rounded-full grid place-items-center transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
                         aria-label={`Ir al servicio ${index + 1}: ${service.title}`}
                         aria-controls={slideRegionId}
                         aria-current={isActive ? "true" : undefined}
-                      />
+                      >
+                        <span
+                          className={`h-2 w-2 rounded-full transition ${isActive ? "bg-orange-500" : "bg-white/30"}`}
+                          aria-hidden="true"
+                        />
+                      </button>
                     </li>
                   );
                 })}
@@ -132,7 +163,7 @@ export function Hero() {
               >
                 <ChevronRight className="w-6 h-6" aria-hidden="true" />
               </button>
-            </div>
+            </nav>
           </div>
         </section>
       </div>

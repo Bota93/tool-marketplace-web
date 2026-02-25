@@ -35,13 +35,18 @@ export function Header() {
               href="/ofertas">
               Ofertas
             </a>
-            <a className="hover:text-white transition font-medium" href="#contact">Contacto</a>
+            <a
+              className={`transition ${isActive('/contacto') ? 'text-white border-b-2 border-orange-500 pb-1' : 'hover:text-white'}`}
+              href="/contacto"
+            >
+              Contacto
+            </a>
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="#contact">
-              <Button>Agenda una llamada</Button>
-            </a>
+            <Button as="a" href="/contacto">
+              Agenda una llamada
+            </Button>
           </div>
         </div>
       </Container>

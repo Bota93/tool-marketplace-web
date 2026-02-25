@@ -82,11 +82,9 @@ export function ServicesPage() {
                     </div>
                     <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
                     <p className="text-lg text-slate-600 mb-6">{service.description}</p>
-                    <a href="#contact">
-                      <Button className="inline-flex items-center gap-2">
-                        Contratar servicio <ArrowRight className="h-4 w-4" />
-                      </Button>
-                    </a>
+                    <Button as="a" href="/contacto" className="inline-flex items-center gap-2">
+                      Contratar servicio <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
                   <div className="space-y-3">
                     {service.features.map((feature) => (
@@ -111,9 +109,9 @@ export function ServicesPage() {
               <p className="text-slate-600 mb-8">
                 Contacta con nosotros para una consulta personalizada sin compromiso.
               </p>
-              <a href="#contact">
-                <Button>Solicitar diagnóstico</Button>
-              </a>
+              <Button as="a" href="/contacto">
+                Solicitar diagnóstico
+              </Button>
             </div>
           </Container>
         </Section>

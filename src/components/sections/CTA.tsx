@@ -1,5 +1,4 @@
 import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
 import { Mail, MessageCircle } from "lucide-react";
 
 export function CTA() {

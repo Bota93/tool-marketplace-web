@@ -19,6 +19,7 @@ export function Footer() {
               <a className="hover:text-white transition" href="/">Inicio</a>
               <a className="hover:text-white transition" href="/servicios">Servicios</a>
               <a className="hover:text-white transition" href="/ofertas">Ofertas</a>
+              <a className="hover:text-white transition" href="/contacto">Contacto</a>
             </div>
           </div>
           <div className="flex flex-col gap-4">
